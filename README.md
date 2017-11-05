@@ -1,2 +1,3 @@
-# Docker-Aula-Masso
-Usando Docker en Asir IES Galletas
+# Dockerizando Aula I.E.S Asir Las Galletas
+En cualquier terminal donde este disponibles los comandos de docker ejecutar el init.sh automaticamente se crearan n maquinas virtuales ligeras con entorno grafico a las que te podras conectar via http gracias al servicio vnc que esta en el interior de cada maquina.
+Por defecto las maquinas estan configuradas cada una de ellas en redes diferentes por lo que no existe conexion de un contenedor a otro.

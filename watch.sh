@@ -6,21 +6,19 @@ then
 	exit 1
 fi
 
-function cleanup {
-	tput rmcup
-}
-
-tput smcup
-trap cleanup EXIT
+declare -A students
 
 while true
 do
-	clear
 	while read studentConfig
 	do
 		studentId=`echo $studentConfig | cut -d, -f1`
-		studentHttpConnections=`docker exec -i $studentId /bin/bash -c 'netstat -natp | grep 0.0.0.0:80 | wc -l'`
-		echo "$studentId : $studentHttpConnections connections to 0.0.0.0:80"
+		studentHttpConnections=`docker exec -i vnc_test /bin/bash -c 'netstat -at | grep \`hostname\`:80 | wc -l'`
+		if [[ ${students[$studentId]} != $studentHttpConnections ]]
+		then
+			echo "[ `date +'%Y-%m-%d %H:%M:%S'` ] $studentId : $studentHttpConnections connections"
+			students[$studentId]=$studentHttpConnections
+		fi
 	done < $1
-	sleep 5
+	sleep 1
 done
